@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My first Vue app</title>
+  <script src="https://unpkg.com/vue@2"></script>
+</head>
+<body>
+  <div id="app">
+      <p>{{ vrijeme }}</p>
+      <p>{{ datum }}</p>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        vrijeme: '',
+        datum: ''
+      },
+
+    methods: {
+        async getData(){
+            const vrijemeGet = await fetch('http://localhost:3000/vrijeme')
+            const datumGet = await fetch('http://localhost:3000/datum')
+            const vrijeme = await vrijemeGet.text()
+            const datum = await datumGet.text()
+            this.vrijeme = vrijeme
+            this.datum = datum
+
+        },
+    },
+    mounted(){
+        this.getData()
+    },
+
+    })
+
+  </script>
+</body>
+</html>
